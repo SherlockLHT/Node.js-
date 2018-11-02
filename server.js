@@ -1,5 +1,7 @@
 //本地变量和模块取一样的名字是惯例
 var http = require("http");//请求http模块加载
+var url = require('url');
+var router = require('./router');
 
 function startServer() {
     //createServer是http模块的方法，执行后返回对象，有一个listen的方法，用http服务器监听端口号
@@ -7,7 +9,11 @@ function startServer() {
     console.log("Serve has started...");
 
     function onRequest(request, response) {
-        console.log("Receive request");
+        var pathName = url.parse(request.url).pathName;
+        console.log("Request for " + pathName + " received.");
+
+        router.route(pathName);
+
         //200表示HTTP状态，后面参数表示HTTP头内容
         response.writeHead(200, { "Content-Type": "text/plain" });
         response.write("Hello World");  //HTTP主体
