@@ -4,6 +4,7 @@ function start(){
     console.log("Request handler [start] was called.");
     var content = "empty";
 
+    //非阻塞式
     exec("find /", function(error, stdout, stderr){
         content = stdout;
     });
