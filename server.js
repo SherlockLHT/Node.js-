@@ -11,11 +11,10 @@ function start(route, handle) {
         var pathName = url.parse(request.url).pathname;
         console.log("Request for [" + pathName + "] received.");
 
-        route(handle, pathName);
-
         //200表示HTTP状态，后面参数表示HTTP头内容
         response.writeHead(200, { "Content-Type": "text/plain" });
-        response.write("Hello World");  //HTTP主体
+        var content = route(handle, pathName);
+        response.write(content);  //HTTP主体
         response.end(); //完成响应
         console.log("Send end");
     }
